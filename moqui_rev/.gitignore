@@ -1,0 +1,40 @@
+# Build directories
+build/
+cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Compiled binaries
+*.exe
+*.out
+*.app
+moqui_rev
+lib*.a
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+_deps/
+
+# Testing
+*.log
+Testing/
+
+# Temporary files
+*.tmp
+*.temp
+data/output/

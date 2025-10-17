@@ -1,0 +1,95 @@
+{
+  "timestamp": "2025-10-15T01:38:51Z",
+  "ci_run_id": "18515019239",
+  "commit_hash": "49a07cc",
+  "commit_message": "fix(build): add missing include directory with library headers",
+  "ci_status": "failure",
+  "error_type": "compilation_error",
+  "failure_stage": "build",
+  "primary_error": {
+    "file": "tps_env/../src/moqui/base/environments/../../kernel_functions/mqi_transport.hpp",
+    "line": 100,
+    "error_message": "cannot convert 'mqi::mqi_standard_rng*' {aka 'std::mersenne_twister_engine<long unsigned int, 64, 312, 156, 31, 13043109905998158313, 29, 6148914691236517205, 17, 8202884508482404352, 37, 18444473444759240704, 43, 6364136223846793005>*'} to 'mqi::mqi_rng*' {aka 'std::linear_congruential_engine<long unsigned int, 16807, 0, 2147483647>*'} in initialization",
+    "code_line": "mqi::mqi_rng *thread_rng = &threads[thread_id].rnd_generator;",
+    "root_cause": "Type mismatch between random number generator implementations - mqi_standard_rng vs mqi_rng"
+  },
+  "build_context": {
+    "build_system": "CMake",
+    "compiler": "GNU 13.3.0",
+    "build_type": "Release",
+    "platform": "ubuntu-latest",
+    "dependencies": ["GDCM 3.0.22", "GoogleTest 1.14.0"]
+  },
+  "call_stack": [
+    {
+      "function": "run_simulation",
+      "file": "mqi_tps_env.hpp",
+      "line": 1343,
+      "template_args": "R = float; size_t = long unsigned int; uint32_t = unsigned int"
+    },
+    {
+      "function": "run_by_beam",
+      "file": "mqi_tps_env.hpp",
+      "line": 1408,
+      "template_args": "R = float"
+    },
+    {
+      "function": "run",
+      "file": "mqi_tps_env.hpp",
+      "line": 1228,
+      "template_args": "R = float"
+    },
+    {
+      "function": "initialize_and_run",
+      "file": "mqi_tps_env.hpp",
+      "line": 1199,
+      "template_args": "R = float"
+    },
+    {
+      "function": "main",
+      "file": "tps_env.cpp",
+      "line": 54
+    }
+  ],
+  "additional_warnings": [
+    {
+      "file": "mqi_transport.hpp",
+      "line": 101,
+      "warning": "unused variable 'process' [-Wunused-variable]"
+    },
+    {
+      "file": "mqi_transport.hpp",
+      "line": 108,
+      "warning": "unused variable 'Lmin' [-Wunused-variable]"
+    },
+    {
+      "file": "mqi_material.hpp",
+      "line": 74,
+      "warning": "unused parameter 'id' [-Wunused-parameter]"
+    }
+  ],
+  "analysis": {
+    "issue_category": "type_system",
+    "severity": "critical",
+    "fix_complexity": "high",
+    "requires_framework_knowledge": true,
+    "affected_components": ["Monte Carlo simulation engine", "Random number generation", "Multi-threading"]
+  },
+  "suggested_approach": {
+    "description": "Need to align random number generator types across the framework",
+    "possible_solutions": [
+      "Update mqi_rng type alias to match mqi_standard_rng",
+      "Modify threads structure to use consistent RNG type",
+      "Add type conversion utilities for RNG compatibility",
+      "Refactor RNG abstraction layer for type safety"
+    ]
+  },
+  "next_steps": {
+    "immediate_action": "Call CI_Debugger to analyze and fix the RNG type mismatch",
+    "required_files": [
+      "src/moqui/kernel_functions/mqi_transport.hpp",
+      "RNG type definitions and usage across framework"
+    ],
+    "validation": "After fix, ensure CI passes compilation and basic tests succeed"
+  }
+}

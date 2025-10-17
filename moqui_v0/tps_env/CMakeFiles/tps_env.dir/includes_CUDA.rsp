@@ -1,0 +1,1 @@
+-I/home/jokh38/MOQUI_SMC/tps_env -I/home/jokh38/MOQUI_SMC/tps_env/.. -I/home/jokh38/MOQUI_SMC/tps_env/../moqui -I/usr/local/cuda/include -isystem="/usr/local/include/gdcm-3.0" -isystem="/usr/local/cuda-11.7/include"

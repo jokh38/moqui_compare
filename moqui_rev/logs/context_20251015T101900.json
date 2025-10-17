@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "timestamp": "2025-10-15T10:19:00Z",
+    "project_name": "Moqui TPS Environment",
+    "project_location": "/home/jokh38/apps/moqui_rev",
+    "agent_type": "Scrivener",
+    "log_type": "context",
+    "version": "1.0"
+  },
+  "project_overview": {
+    "description": "Monte Carlo simulation engine for Treatment Planning Systems (TPS)",
+    "primary_language": "C++",
+    "build_system": "CMake",
+    "entry_point": "tps_env/tps_env.cpp",
+    "framework": "Complete Moqui framework with all dependencies"
+  },
+  "current_state": {
+    "git_status": "clean",
+    "current_branch": "master",
+    "total_source_files": 156,
+    "recent_commits": [
+      "30e6c19 Add data directory and moqui TPS configuration file",
+      "c5e8482 Add tps_env directory for environment configuration",
+      "ae02d96 Initial commit: Add C++ project structure with MoQUI implementation"
+    ],
+    "build_directory_exists": true,
+    "logs_directory_created": true
+  },
+  "compilation_issues_identified": {
+    "primary_problem": "Complete Moqui framework fails to compile due to systematic include path errors",
+    "critical_missing_headers": {
+      "materials_directory": "src/moqui/base/materials/ - Contains material definitions but headers not found during compilation",
+      "scorers_directory": "src/moqui/base/scorers/ - Contains scoring functionality with include path issues",
+      "kernel_functions_directory": "src/moqui/kernel_functions/ - Contains kernel functions with path resolution problems"
+    },
+    "framework_headers": {
+      "total_affected_headers": 50,
+      "issue_type": "Incorrect include paths throughout the framework",
+      "impact": "Systematic compilation failures across all framework components"
+    },
+    "build_configuration": {
+      "cmake_issues": "CMakeLists.txt configuration problems preventing proper dependency resolution",
+      "gdcm_dependency": "GDCM library dependency issues affecting DICOM handling"
+    },
+    "entry_point_analysis": {
+      "file": "tps_env/tps_env.cpp",
+      "main_dependencies": [
+        "moqui/base/environments/mqi_tps_env.hpp",
+        "moqui/base/mqi_cli.hpp",
+        "Multiple GDCM headers for DICOM processing"
+      ],
+      "compilation_status": "Currently fails due to missing framework headers"
+    }
+  },
+  "project_structure": {
+    "key_directories": {
+      "src/": "Main source code directory containing Moqui framework",
+      "tps_env/": "Treatment Planning System environment entry point",
+      "include/": "Public header files directory",
+      "tests/": "Unit tests directory",
+      "docs/": "Documentation directory",
+      "data/": "Data and configuration files",
+      "build/": "Build output directory",
+      "logs/": "Agent logging directory (newly created)"
+    },
+    "framework_components": {
+      "moqui/base/": "Base framework components including materials, scorers, and environments",
+      "moqui/kernel_functions/": "Kernel functions for Monte Carlo simulations",
+      "materials/": "Material definitions and CT data handling",
+      "scorers/": "Energy deposition and scoring functionality"
+    }
+  },
+  "architecture_invariants": {
+    "no_circular_dependencies": "Enforced - must check dependency graph before modifications",
+    "respect_layer_boundaries": "Framework layers must be properly isolated",
+    "no_hardcoded_secrets": "All configuration must be externalized",
+    "private_api_protection": "Functions/classes starting with _ are private APIs"
+  },
+  "planned_fix_strategy": {
+    "phase_1_analysis": {
+      "task": "Complete scope analysis using Serena's symbol-based tools",
+      "status": "completed",
+      "tools_used": ["find_symbol", "find_references"],
+      "scope_identified": "163 total source files affected"
+    },
+    "phase_2_include_path_fixes": {
+      "task": "Systematically correct all include paths throughout the framework",
+      "status": "pending",
+      "estimated_files_to_modify": 50+ framework headers",
+      "priority": "high"
+    },
+    "phase_3_cmake_configuration": {
+      "task": "Fix CMakeLists.txt to properly resolve all dependencies",
+      "status": "pending",
+      "focus_areas": ["GDCM integration", "Include path configuration", "Library linking"]
+    },
+    "phase_4_dependency_resolution": {
+      "task": "Ensure all external dependencies are properly configured",
+      "status": "pending",
+      "key_dependencies": ["GDCM", "CUDA (optional)", "Standard library"]
+    },
+    "phase_5_validation": {
+      "task": "Complete compilation and testing verification",
+      "status": "pending",
+      "validation_steps": ["Compilation success", "Link success", "Basic functionality tests"]
+    }
+  },
+  "validation_requirements": {
+    "pre_commit_checks": {
+      "code_formatting": "black",
+      "linting": "flake8",
+      "compilation": "must succeed before commit"
+    },
+    "ci_cd_pipeline": {
+      "github_actions": "will monitor after successful commit",
+      "pipeline_stages": ["build", "test", "deploy"],
+      "correction_loop": "automatic fix generation on failure"
+    }
+  },
+  "next_steps": {
+    "immediate_actions": [
+      "Execute atomic fixes for include path issues",
+      "Update CMakeLists.txt configuration",
+      "Verify GDCM library integration"
+    ],
+    "coordination_requirements": {
+      "serena_mcp_server": "Required for all symbol-based code analysis and modifications",
+      "commit_orchestrator": "Will monitor CI/CD pipeline after successful commit",
+      "ci_debugger": "Will handle pipeline failures if they occur"
+    },
+    "documentation_updates": {
+      "changelog": "Will be created for each atomic commit",
+      "errorlog": "Will be created if compilation or CI failures occur",
+      "status_md": "Will be updated with final completion status"
+    }
+  },
+  "success_criteria": {
+    "compilation_success": "Complete Moqui framework compiles without errors",
+    "linking_success": "All dependencies properly linked",
+    "functionality_verified": "TPS environment executable runs successfully",
+    "ci_pipeline_passed": "All automated checks pass",
+    "documentation_complete": "All logs and status updates properly recorded"
+  }
+}
